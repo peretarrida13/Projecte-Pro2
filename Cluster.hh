@@ -1,26 +1,54 @@
-#include <iostream>
-#include "Cjt_Especies.hh"
+/** @file Cluster.hh
+ * @brief Especificació de la classe Clúster
+*/
+
+#ifndef CLUSTER_HH
+#define CLUSTER_HH
+
+#include "Especie.hh"
+
+#ifndef NO_DIAGRAM
+#include "BinTree.hh"
+#endif
+
 using namespace std;
 
+/** @class Clúster
+ * @brief Respresenta les opcions i característiques d'un cluster d'espècies.
+*/
 class Cluster{
-    //ABANS DEL .CC I PULIR DETALLS CAL LLEGIR I ENTENDRE QUE ES UN PUTO CLUSTER;
 
-private:
-    
+private: 
+/** 
+ * @brief Classe gestionada per mitjà d'un BinTree
+ * Esta format pel pair que conté una string que actua com identificador del clúster i un double que representa la distància a la que estan les espècies de les seves branques
+ */
+	BinTree<pair<string, double>> cluster;
+
 public:
-    void inicialitza_clustrers(Cjt_Especies& e);
-    //PRE: Conjunt d'especies no buit;
-    //POST: imprimeix els clusters restants i la taula de distancies entre clusters
-    //identificadors marquen les files i les columnes;
-    void ejecuta_paso_wpgma(Cjt_Especies& e );//Mirar amb més clardat que es el cluster i com funciona; 
-    //PRE:cert; 
-    //POST: fusiona els dos clusters de menor distancia i imprimeix la taula de distancies entre clusters resultats;
-    //es fan servir els identificadors dels clusters per indexar la taula;
-    void imprime_cluster(string identificador);
-    //PRE: Existeix el cluster amb identificador; 
-    //POST: Imprimeix l'estructura arbolescent  del cluster amb l'identificador donat;
-    void imprime_arbol_filogenetico();
-    //imprimeix el arbre filogenetic per el conjunt d'especies, agrupa les especies resultants d'aplicar l'algoritme WPGMA.
-    //es descarta el conjunt de clusters previ i es reinicia amb el conjunt d'especies en el estat en el que esta en el moment
-    //anper a continuació aplicar l'algoritme;
+/**
+ * @brief Constructora.
+ * \pre <em>Cert</em>
+ * \post El resultat un clúster sense nodes i fills creada a partir d'una espècie.
+ */
+
+	Cluster(Especie& e);
+
+/** @brief Constructora a partir de dos clusters.
+ * \pre <em>Cert<em>
+ * \post El resultat una fusió dels dos clusters en un.
+*/
+	Cluster( Cluster esquerra, Cluster dret);
+
+/** @brief Destructora*/
+ ~Cluster();
+
+/** @brief Imprimeix clúster
+ * 
+ * \pre Clúster no buit.
+ * \post S'ha imprès el clúster.
+*/ 
+	void imprimeix_cluster();
 };
+
+#endif
