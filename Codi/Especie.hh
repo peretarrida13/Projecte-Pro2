@@ -8,6 +8,7 @@
 #ifndef NO_DIAGRAM
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #endif
 
 using namespace std;
