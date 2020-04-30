@@ -46,22 +46,20 @@ public:
 	\pre No existeix cap espècie amb l'identificador donat.
 	\post Un nou objecte del tipus espècie s'ha afegit al conjunt d'espècies.
 	*/
-	void crea_especie(string& identificador, string& gen);
+	void crea_especie(string& identificador, string& gen, int& k);
 
 	/**
 	@brief Consultar l'espècie d'un conjunt
 	Consultora d'un conjunt d'espècies per veure l'espècie pertanyent al conjunt amb l'identificador donat.
-
 	\pre Existeix l'espècie dins del conjunt. 
 	\post Retorna l'objecte especie amb l'identifjicador donat.
 	*/
-	Especie consultar_especie(string identificador) const;
+	Especie consultar_especie(string id);
 	
 	/**
 	@brief Distància entre 2 espècies
 	Donats dos identificadors i de dos espècies diferents i un enter k, es retorna la distància entre
 	les dos espècies. Si alguna de les dos espècies no existeix, la funcio retorna Error.
-
 	\pre Existeixen els dos paràmetres d'entrada;
 	\post Retorna la distància entre les dos espècies amb dits identificadors.
 	*/
@@ -71,7 +69,6 @@ public:
 	@brief Elimina espècie
 	Es dona un identificador, es busca l'espècie amb l'identificador dins del conjunt, i
 	s'elimina.
-
 	\pre Existeix l'espècie amb l'identificador donat.
 	\post S'ha eliminat l'espècie amb l'identificador id del conjunt d'espècies.
 	*/	
@@ -81,20 +78,18 @@ public:
 	@brief Existeix espècie
 	Busca una espècies dins del conjunt amb l'identificador donat. Retorna true si l'ha trobada
 	i false en cas contrari.
-
 	\pre Identificador vàlid.
 	\post Retorna si l'espècie que pertany a l'identificador pertany al conjunt o no.
 	*/
-	bool existe_especie(string& id) const;
+	bool existe_especie(string& id);
 	
 	/**
 	@brief Llegir Un Conjunt d'espècies
 	Llegeix un conjunt d'espècies i guarda els valors llegits en una llista d'espècies.
-
 	\pre <em>Cert</em>
 	\post S'ha llegit i afegit totes les espècies al conjunt.
 	*/
-	void lee_cjt_especies();
+	void lee_cjt_especies(int k);
 
 	/** @brief Conjunt buit
 	 * 
@@ -106,16 +101,14 @@ public:
 	/**
 	@brief Imprimeix un Conjunt d'espècies
 	Imprimeix un conjunt d'espècies amb el identificador i amb el gen corresponents.
-
 	\pre Conjunt d'espècies no buit.
 	\post S'han imprés totes les espècies del conjunt amb els seus respectius identificadors i gens.
 	*/
-	void imprime_cjt_especies() const;
+	void imprime_cjt_especies();
 	
 	/**
 	@brief <b>Taula de distàncies</b>
 	Donat un conjunt d'espècies imprimeix una matriu amb les distàncies entre espècies del conjunt.
-
 	\pre Conjunt no buit.
 	\post S'imprimeix la distància entre cada parell d'espècies del conjunt.
 	*/

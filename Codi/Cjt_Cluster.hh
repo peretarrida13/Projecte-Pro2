@@ -33,7 +33,6 @@ public:
 /**
 	@brief Inclialitza es clústers
 	Inicialitza els clústers partint d'un conjunt d'espècies no buit.
-
 	\pre Conjunt d'espècies no està buit
 	\post S'han imprés els clústers restants i la taula de distàncies entre clústers, els identificadors indexen les files o les comlumnes. 
 	*/
