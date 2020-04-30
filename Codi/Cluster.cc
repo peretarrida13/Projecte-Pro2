@@ -1,9 +1,11 @@
 #include "Cluster.hh"
 using namespace std;
 
-Cluster::Cluster(Especie& e){
+Cluster::Cluster(string& e){
     pair a; 
-    a.fist() = e.obtener_gen();
+    a.first = e;
+    a.second = 0;
+    cluster.value() = a;
 }
 
 Cluster::Cluster(Cluster esquerra, Cluster dret){

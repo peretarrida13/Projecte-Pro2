@@ -32,7 +32,7 @@ public:
  * \post El resultat un clúster sense nodes i fills creada a partir d'una espècie.
  */
 
-	Cluster(Especie& e);
+	Cluster(string& e);
 
 /** @brief Constructora a partir de dos clusters.
  * \pre <em>Cert<em>
