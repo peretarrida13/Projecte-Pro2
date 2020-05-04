@@ -19,7 +19,7 @@ private:
 /** @brief Diccionari on guardem les espècies a partir d'un identificador. */
 	map<string, Especie> especies;
 /** @brief Matriu de doubles que representen les distàncies entre espècies donats dos identificadors. */
-	map<string, map<string, double>> dist;
+	map<string, map<string, double> > dist;
 
 /** @brief Modificadora que ens permet actualitzar la matriu dist 
  * donats una espècie i un boolea que ens indica si em d'eliminar o afegir columnes i files.
@@ -112,7 +112,7 @@ public:
 	\pre Conjunt no buit.
 	\post S'imprimeix la distància entre cada parell d'espècies del conjunt.
 	*/
-	void imprimir_tabla_distancias() const;
+	void imprimir_tabla_distancias();
 
 };
 

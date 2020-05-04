@@ -23,7 +23,7 @@ private:
  * @brief Classe gestionada per mitjà d'un BinTree
  * Esta format pel pair que conté una string que actua com identificador del clúster i un double que representa la distància a la que estan les espècies de les seves branques
  */
-	BinTree<pair<string, double>> cluster;
+	BinTree<pair<string, double>> clust;
 
 public:
 /**

@@ -28,8 +28,11 @@ private:
 	 * @brief Taula per emmagatzemmar la distàncies entre clústers.
 	*/
 	map<string, map<string, double>> taula_distancies;
+
+	
 	
 public: 
+
 /**
 	@brief Inclialitza es clústers
 	Inicialitza els clústers partint d'un conjunt d'espècies no buit.
@@ -51,7 +54,7 @@ public:
 	 * \pre El clúster de l'identificador existeix dins del conjunt.
 	 * \post Retorna el clúster corresponent a l'identificador donat.
 	*/
-	Cluster consultar_cluster(string id) const;
+	Cluster consultar_cluster(string id);
 	
 	/**
 	 * @brief Imprimeix l'arbre filogenetic a partir del conjunt d'espècies actual.

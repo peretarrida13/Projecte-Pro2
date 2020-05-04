@@ -7,8 +7,8 @@
 
 #ifndef NO_DIAGRAM
 #include <iostream>
-#include <vector>
-#include <algorithm>
+#include <map>
+#include <string>
 #endif
 
 using namespace std;
@@ -25,7 +25,7 @@ private:
 /** @brief Cadena de gens d'una espècie. */
     string gen;
 /** @brief Vector que guarda els kmers un cop s'inicialitza l'espècie amb els seus gens */
-	vector<string> kmer;
+	map<string, int> kmer;
 
 /** @brief Passa de la string gen a un vector kmer
  * \pre L'espècie té un gen vàld
@@ -56,7 +56,7 @@ public:
 	\pre <em>Cert</em> 
 	\post Retorna un vector amb tots els seus integrans.
 	*/
-    vector<string> obtener_kmer() const;
+    map<string, int> obtener_kmer() const;
     
     /**
 	@brief Consultora del gen d'una Espècie;

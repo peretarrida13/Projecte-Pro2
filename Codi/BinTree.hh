@@ -5,8 +5,11 @@
 #include <memory>
 using namespace std;
 
+
+
 // A BinTree<T> implements binary trees with values of type T.
-template <typename T> class BinTree {
+template <typename T>
+class BinTree {
 
     struct Node {
         T x;
@@ -71,6 +74,8 @@ public:
         assert(not empty());
         return p->x;
     }
+
 };
+
 
 #endif
