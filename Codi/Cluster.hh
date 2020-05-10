@@ -49,12 +49,14 @@ public:
  * \post S'ha imprès el clúster.
 */ 
 	void imprimeix_cluster(const BinTree<pair<string, double> >& b);
-
+/**
+ * @brief Obtenir arbre
+ * Donat un cluster retorna el seu arbre binari per facilitar la impressió.
+ * \pre Cluster no buit.
+ * \post Retorna el arbre binarai corresponent al clúster.
+*/
 	BinTree<pair<string, double> > get_tree();
 
-	BinTree<pair<string, double> > get_right();
-
-	BinTree<pair<string, double> > get_left();
 };
 
-#endif
+#endif 

@@ -19,7 +19,7 @@ void Cjt_Especies::actualitza_dist(const Especie& e, const string& id, bool elim
         }
         //Busquem l'especie dins del conjunt per eliminar-la despres
         map<string, map<string, double> >::iterator it = dist.find(id);
-        dist.erase(it);
+        dist.erase(it); 
         
     }else{
         //Creem un map aiuxiliar que sera equivalent a la nova fila afegida amb la nova especie.

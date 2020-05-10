@@ -116,12 +116,18 @@ public:
 
 	/**
 	@brief <b>Taula de distàncies</b>
-	retorna la taula de distancies de un conjunt d'especies
+	Retorna la taula de distancies de un conjunt d'especies
 	\pre Conjunt no buit.
 	\post S'ha retornat la distància entre cada parell d'espècies del conjunt.
 	*/
 	map<string, map<string, double> > taula_dist();
 
+	/**
+	@brief <b> Map Especies </b>
+	Retorna el map del conjunt d'especies.
+	\pre Existeix el conjunt d'espècies.
+	\post Retorna un map que conté el conjunt d'espècies sense la taula de distàncies.
+	*/
 	map<string, Especie> cjt();
 };
 

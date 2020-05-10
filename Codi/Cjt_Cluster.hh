@@ -72,13 +72,28 @@ public:
 	 * respectius identificadors i la distància entre les fulles. Error si el conjunt de clusters es buit.
 	*/
 	void imprime_arbol_filogenetico();
-	 
+
+	/**
+	 * @brief Imprimeix taula de distàncies.
+	 * \post <em>Cert</em>
+	 * \post S'ha imprés la taula amb els identificadors corresponents.
+	*/
 	void imprimir_taula_distancias();
 
+	/**
+	 * @brief Busca Cluster.
+	 * \post Conjunt de clústers no buits.
+	 * \post Retorna si el exiteix el clúster dins del conjunt de clústers.
+	*/
 	bool busca_cluster(const string& id);
 
+	/**
+	 * @brief Retorna la mida del conjunt de clusters
+	 * \post <em>Cert</em>
+	 * \post Retorna la mida del conjunt de clústers
+	*/
 	int mida_cjt();
 
 };
 
-#endif
+#endif 
