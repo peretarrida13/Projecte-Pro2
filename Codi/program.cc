@@ -2,13 +2,14 @@
  * @brief Implementació de la classe principal.
 */
 
-#include "Cjt_Especies.hh"
+#include "Cjt_Cluster.hh"
 
 using namespace std;
 
 int main(){
     int k;
     Cjt_Especies esp;
+    Cjt_Cluster c;
     string op, id, id2, gen; 
 
     cin >> k;
@@ -63,20 +64,40 @@ int main(){
             cout << "# tabla_distancias" << endl;
             esp.imprimir_tabla_distancias();
         }
-       /*else if(op == "inicialitza_clusters"){
+       else if(op == "inicializa_clusters"){
+            cout << "# inicializa_clusters" << endl;
             if(esp.esta_buit()) cout << endl;
-            else clust.inicialitza_clustrers(esp);
+            else{
+                c.inicialitza_clustrers(esp);
+                c.imprimir_taula_distancias();
+            }
         }
         else if(op == "ejecuta_paso_wpgma"){
-            clust.ejecuta_paso_wpgma();
+            cout << "# ejecuta_paso_wpgma" << endl;
+            if(c.mida_cjt() > 1){
+                c.inicialitza_clustrers(esp);
+                c.ejecuta_paso_wpgma();
+                c.imprimir_taula_distancias();
+            }
+            else cout << "ERROR: num_clusters <= 1" << endl;
         }
         else if(op == "imprime_cluster"){
             cin >> id;
-            clust.consultar_cluster(id).imprimeix_cluster();
+            cout << "# imprime_cluster " << id << endl;
+            if(c.busca_cluster(id)){
+                c.consultar_cluster(id).imprimeix_cluster(c.consultar_cluster(id).get_tree());
+            }
+            else cout << "ERROR: El cluster " << id << " no existe." << endl;
         }
-        else if(op == "imprime_arbol_filogenetio"){
-            clust.imprime_arbol_filogenetio();
-        }*/
+        else if(op == "imprime_arbol_filogenetico"){
+            cout << "# imprime_arbol_filogenetico" << endl;
+            if(c.mida_cjt() != 0){
+                c.inicialitza_clustrers(esp);
+                c.imprime_arbol_filogenetico();
+            }else{
+                cout << "ERROR: El conjunto de clusters es vacio." << endl;
+            }
+        }
         cout << endl; 
     }
 }

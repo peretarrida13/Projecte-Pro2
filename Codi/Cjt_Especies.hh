@@ -26,7 +26,7 @@ private:
  * \pre <em> Cert.</em>
  * \post Si l'espècie no existeix, s'afageix a la matriu i s'actualitza les distàncies entre les espècies, en cas contrari, s'elimina de la matriu.
 */
-	void actualitza_dist(const Especie& esp, bool eliminar);
+	void actualitza_dist(const Especie& e, const string& id, bool eliminar);
 
 public:
 /** @brief  Creadora
@@ -114,6 +114,15 @@ public:
 	*/
 	void imprimir_tabla_distancias();
 
+	/**
+	@brief <b>Taula de distàncies</b>
+	retorna la taula de distancies de un conjunt d'especies
+	\pre Conjunt no buit.
+	\post S'ha retornat la distància entre cada parell d'espècies del conjunt.
+	*/
+	map<string, map<string, double> > taula_dist();
+
+	map<string, Especie> cjt();
 };
 
 #endif

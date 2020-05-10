@@ -23,7 +23,7 @@ private:
  * @brief Classe gestionada per mitjà d'un BinTree
  * Esta format pel pair que conté una string que actua com identificador del clúster i un double que representa la distància a la que estan les espècies de les seves branques
  */
-	BinTree<pair<string, double>> clust;
+	BinTree<pair<string, double> > clust;
 
 public:
 /**
@@ -38,17 +38,23 @@ public:
  * \pre <em>Cert<em>
  * \post El resultat una fusió dels dos clusters en un.
 */
-	Cluster( Cluster esquerra, Cluster dret);
+	Cluster(pair<string, double> p,  BinTree<pair<string, double> > dret, BinTree<pair<string, double> > esq);
 
 /** @brief Destructora*/
- ~Cluster();
+ 	~Cluster();
 
 /** @brief Imprimeix clúster
  * 
  * \pre Clúster no buit.
  * \post S'ha imprès el clúster.
 */ 
-	void imprimeix_cluster();
+	void imprimeix_cluster(const BinTree<pair<string, double> >& b);
+
+	BinTree<pair<string, double> > get_tree();
+
+	BinTree<pair<string, double> > get_right();
+
+	BinTree<pair<string, double> > get_left();
 };
 
 #endif

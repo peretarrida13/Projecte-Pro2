@@ -6,7 +6,7 @@
 #define CJT_CLUSTER_HH
 
 #include "Cluster.hh"
-#include "Cjt_Especies.hh"
+#include "Cjt_Especies.hh"  
 
 #ifndef NO_DIAGRAM
 #include <map> 
@@ -27,11 +27,20 @@ private:
 	/**
 	 * @brief Taula per emmagatzemmar la distàncies entre clústers.
 	*/
-	map<string, map<string, double>> taula_distancies;
+	map<string, map<string, double> > taula_distancies;
 
-	
+	/** @brief Modificadora que ens permet actualitzar la matriu dist 
+ 	* donat el identificador elimina les files i les columnes donades
+ 	* \pre <em> Cert.</em>
+ 	* \post Si l'espècie no existeix, s'afageix a la matriu i s'actualitza les distàncies entre les espècies, en cas contrari, s'elimina de la matriu.
+	*/
+	void actualitza_taula(const string& id1, const string& id2, bool eliminar);
 	
 public: 
+	/**
+	@brief Constructora per defecte;
+	**/
+	Cjt_Cluster();
 
 /**
 	@brief Inclialitza es clústers
@@ -62,8 +71,13 @@ public:
 	 * \post S'ha descartat el conjunt de cluústers anterior i s'ha exacutat tot l'algorisme WPGMA, s'imprimeixen l'estructura arbolescent del clúster amb els seus
 	 * respectius identificadors i la distància entre les fulles. Error si el conjunt de clusters es buit.
 	*/
-	void imprime_arbol_filogenetio();
+	void imprime_arbol_filogenetico();
 	 
+	void imprimir_taula_distancias();
+
+	bool busca_cluster(const string& id);
+
+	int mida_cjt();
 
 };
 
