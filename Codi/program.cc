@@ -75,7 +75,6 @@ int main(){
         else if(op == "ejecuta_paso_wpgma"){
             cout << "# ejecuta_paso_wpgma" << endl;
             if(c.mida_cjt() > 1){
-                c.inicialitza_clustrers(esp);
                 c.ejecuta_paso_wpgma();
                 c.imprimir_taula_distancias();
             }
@@ -86,14 +85,16 @@ int main(){
             cout << "# imprime_cluster " << id << endl;
             if(c.busca_cluster(id)){
                 c.consultar_cluster(id).imprimeix_cluster(c.consultar_cluster(id).get_tree());
+                cout << endl;
             }
             else cout << "ERROR: El cluster " << id << " no existe." << endl;
         }
         else if(op == "imprime_arbol_filogenetico"){
             cout << "# imprime_arbol_filogenetico" << endl;
+            c.inicialitza_clustrers(esp);
             if(c.mida_cjt() != 0){
-                c.inicialitza_clustrers(esp);
                 c.imprime_arbol_filogenetico();
+                cout << endl;
             }else{
                 cout << "ERROR: El conjunto de clusters es vacio." << endl;
             }

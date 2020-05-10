@@ -26,13 +26,17 @@ void Cjt_Cluster::actualitza_taula(const string& id1, const string& id2, bool el
         map<string, double> aux;
         string id_res = id1 + id2;
         for(map<string, map<string, double> >::iterator it = taula_distancies.begin(); it != taula_distancies.end(); ++it){
-            map<string, double>::iterator it1 = (it -> second).find(id1);
-            map<string, double>::iterator it2 = (it -> second).find(id2);
-            double dist1 = it1 -> second;
-            double dist2 = it2 -> second;
-            double res = ((dist1 + dist2) / 2);
-            aux.insert(make_pair(it -> first, res));
-            (it->second).insert(make_pair(id_res, res));
+            map<string, double>::const_iterator it1 = (it -> second).find(id1);
+            map<string, double>::const_iterator it2 = (it -> second).find(id2);           
+            if(it1 != (it -> second).end() and it2 != (it -> second).end()) {  
+                double d = it1 -> second;
+                double d1 = it2 -> second;
+                double res = ((d + d1) / 2);
+
+                it -> second.insert(make_pair(id_res, res));
+                aux.insert(make_pair(it ->first, res));
+            }
+            //imprimir_taula_distancias();
         }
         taula_distancies.insert(make_pair(id_res, aux));
     }
@@ -44,13 +48,13 @@ void Cjt_Cluster::inicialitza_clustrers(Cjt_Especies& e){
     taula_distancies.clear();
     c.clear();
     taula_distancies = e.taula_dist();
+    
     map<string, Especie> aux = e.cjt();
     for(map<string, Especie>::iterator it = aux.begin(); it != aux.end(); ++it){
         string id = it -> first;
         Cluster cl(id);
         c.insert(make_pair(id, cl));
     }
-
 }
 
 void Cjt_Cluster::ejecuta_paso_wpgma(){
@@ -68,8 +72,13 @@ void Cjt_Cluster::ejecuta_paso_wpgma(){
             }
         }
     }
+    //cout << 't' << endl;
     actualitza_taula(m2, m1, false);
+    //imprimir_taula_distancias();
+    //cout << 'e' << endl;
     actualitza_taula(m1, m2, true);
+    //imprimir_taula_distancias();
+    //cout << 's' << endl;
     
     //ACTUALITZAR EL CONJUNT DE CLUSTERS AMB EL NOU CLUSTER FUSIONAT
     //Eliminem el primer cluster
@@ -85,6 +94,7 @@ void Cjt_Cluster::ejecuta_paso_wpgma(){
     //Crear nou cluster amb la unio de les dos strings i la meitat de la distancia
     Cluster aux(make_pair(id_res, double(min / 2)), dret, esq);
     c.insert(make_pair(id_res, aux));
+    //cout << 't' << endl;
    
 }
 
@@ -94,21 +104,13 @@ Cluster Cjt_Cluster::consultar_cluster(string id){
 }
 
 void Cjt_Cluster::imprime_arbol_filogenetico(){
- //EXACUTA EL L'ALGORITME FINS QUE C <= 1
-    if(c.size() > 1){
-
+ //EXACUTA EL L'ALGORITME FINS QUE C <= 1 
+    if(not c.empty()){
         while(c.size() > 1){
-            ejecuta_paso_wpgma();
-        }    
-
+        ejecuta_paso_wpgma();
+        }      
         map<string, Cluster>::iterator it = c.begin(); 
-        BinTree<pair<string, double> > aux = (it -> second).get_tree();
-        (it -> second).imprimeix_cluster(aux);
-    }
-    else{
-        map<string, Cluster>::iterator it = c.begin(); 
-        BinTree<pair<string, double> > aux = (it -> second).get_tree();
-        (it -> second).imprimeix_cluster(aux);
+        (it -> second).imprimeix_cluster((it -> second).get_tree());
     }
 }
 
