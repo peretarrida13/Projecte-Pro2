@@ -66,8 +66,7 @@ int main(){
         }
        else if(op == "inicializa_clusters"){
             cout << "# inicializa_clusters" << endl;
-            if(esp.esta_buit()) cout << endl;
-            else{
+            if(not esp.esta_buit()){
                 c.inicialitza_clustrers(esp);
                 c.imprimir_taula_distancias();
             }
@@ -99,6 +98,6 @@ int main(){
                 cout << "ERROR: El conjunto de clusters es vacio." << endl;
             }
         }
-        cout << endl; 
+        cout << endl;
     }
 }

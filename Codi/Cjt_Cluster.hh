@@ -34,7 +34,7 @@ private:
  	* \pre <em> Cert.</em>
  	* \post Si l'espècie no existeix, s'afageix a la matriu i s'actualitza les distàncies entre les espècies, en cas contrari, s'elimina de la matriu.
 	*/
-	void actualitza_taula(const string& id1, const string& id2, bool eliminar);
+	void actualitza_taula(const string& id1, const string& id2);
 	
 public: 
 	/**

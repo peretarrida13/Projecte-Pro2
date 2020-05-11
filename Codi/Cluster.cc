@@ -18,7 +18,7 @@ Cluster::~Cluster(){}
 void Cluster::imprimeix_cluster(const BinTree<pair<string, double> >& c){
     // Comprovem que el conjunt no estigui buit 
     if(not c.empty()){
-        if(c.value().second != -1){
+        if(not c.right().empty() and not c.left().empty()){
             //imprimim el node i després imprimim recursivament la resta del arbre
             cout << "[(" << c.value().first << ", " << c.value().second << ") ";
             imprimeix_cluster(c.right());
