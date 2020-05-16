@@ -34,10 +34,6 @@ Especie::~Especie(){
     //Destructora per defecte
 }
 
-/*map<string, int> Especie::obtener_kmer() const{
-    //Retorna el kmer de l'especie.
-    return kmer;
-}*/
 
 string Especie::obtener_gen() const{
     //Retorna el gen de l'especie.

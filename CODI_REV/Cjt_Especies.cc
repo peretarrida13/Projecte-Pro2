@@ -26,8 +26,7 @@ void Cjt_Especies::actualitza_dist(const Especie& e, const string& id, bool elim
         map<string, double> aux; 
         
         for(map<string, Especie>::iterator it1 = especies.begin(); it1 != especies.end(); ++it1){
-            double d = distancia(it1 -> second, e);
-            aux.insert(make_pair(it1 -> first, d));
+            aux.insert(make_pair(it1 -> first, distancia(it1 -> second, e)));
         }
         dist.insert(make_pair(id, aux)); 
         
@@ -35,8 +34,7 @@ void Cjt_Especies::actualitza_dist(const Especie& e, const string& id, bool elim
         map<string, map<string, double> >::iterator tau = dist.begin();
 
         for(map<string, Especie>::iterator it1 = especies.begin(); it1 != especies.end(); ++it1){
-            double d = distancia(it1 -> second, e);
-            (tau -> second).insert(make_pair(id,d));
+            (tau -> second).insert(make_pair(id, distancia(it1 -> second, e)));
             ++tau;
         }
     }
@@ -125,14 +123,11 @@ void Cjt_Especies::lee_cjt_especies(int k){
 
     //Recorrem el map d'especies per omplir la taula de distancies amb les corresponents distancies entre especies.
     for(map<string, Especie>::iterator it = especies.begin(); it != especies.end(); ++it){
-        string id = it -> first;
         map<string,double> aux;
-        for(map<string, Especie>::iterator it2 = especies.begin(); it2 != especies.end(); ++it2){
-            double d = distancia(it -> second, it2 -> second);
-            
-            aux.insert(make_pair(it2 -> first, d));
+        for(map<string, Especie>::iterator it2 = especies.begin(); it2 != especies.end(); ++it2){            
+            aux.insert(make_pair(it2 -> first, distancia(it -> second, it2 -> second)));
         }
-        dist.insert(make_pair(id,aux));
+        dist.insert(make_pair(it -> first, aux));
     }
 }
 

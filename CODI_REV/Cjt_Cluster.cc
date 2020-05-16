@@ -9,9 +9,7 @@ void Cjt_Cluster::actualitza_taula(const string& id1, const string& id2){
         map<string, double>::const_iterator it1 = (it -> second).find(id1);
         map<string, double>::const_iterator it2 = (it -> second).find(id2);           
         if(it1 != (it -> second).end() and it2 != (it -> second).end()) {  
-            double d = it1 -> second;
-            double d1 = it2 -> second;
-            double res = ((d + d1) / 2);
+            double res = ((it1 -> second + it2 -> second) / 2);
             it -> second.insert(make_pair(id_res, res));
             aux.insert(make_pair(it ->first, res));
         }
@@ -108,7 +106,6 @@ void Cjt_Cluster::imprime_arbol_filogenetico(){
 
 void Cjt_Cluster::imprimir_taula_distancias() const{
     //Recorrem la taula per imprimir tots els components de la taula
-  
     for(map<string, map<string, double> >::const_iterator fila = taula_distancies.begin(); fila != taula_distancies.end(); ++fila){
         cout << fila -> first << ":";
         for(map<string, double>::const_iterator columna = (fila -> second).begin(); columna != (fila -> second).end(); ++columna){
