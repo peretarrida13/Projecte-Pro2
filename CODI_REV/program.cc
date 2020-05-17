@@ -33,7 +33,7 @@ int main(){
             cin >> id >> id2;
             cout << "# distancia " << id << ' ' << id2 << endl;
             if(esp.existe_especie(id) and esp.existe_especie(id2)){
-                double dist1 = esp.distancia(esp.consultar_especie(id), esp.consultar_especie(id2));
+                double dist1 = Especie::distancia(esp.consultar_especie(id), esp.consultar_especie(id2));
                 cout << dist1 << endl;
             }
             else if(not esp.existe_especie(id) and esp.existe_especie(id2)) cout << "ERROR: La especie " << id << " no existe." << endl;
@@ -83,7 +83,7 @@ int main(){
             cin >> id;
             cout << "# imprime_cluster " << id << endl;
             if(c.busca_cluster(id)){
-                c.consultar_cluster(id).imprimeix_cluster(c.consultar_cluster(id).clust);
+                c.consultar_cluster(id).imprimeix_cluster(c.consultar_cluster(id));
                 cout << endl;
             }
             else cout << "ERROR: El cluster " << id << " no existe." << endl;

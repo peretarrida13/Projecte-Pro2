@@ -39,3 +39,31 @@ string Especie::obtener_gen() const{
     //Retorna el gen de l'especie.
     return gen;
 }
+
+double Especie::distancia(const Especie& a, const Especie& b){
+    int in = 0;
+    int un = 0;
+    //inicialitzem els kmers en dos maps per tal de calcular la distancia
+    map<string, int> p = b.kmer;
+    map<string, int> s = a.kmer;
+
+    //Copiem p i borrem els kmers que comparteix amb s durant el recorregut
+    for(map<string, int>::iterator it = s.begin(); it != s.end(); ++it){
+        map<string, int>::iterator it2 = p.find(it->first);
+        if(it2 != p.end()){
+            if(it->second >= it2->second){
+                un += it->second;
+                in += it2->second;
+            } else{
+                un += it2->second;
+                in += it->second;
+            }
+            p.erase(it2->first);
+        } else un += it->second; //Si el kmer de s no es troba en p només sumem a unió 
+    }
+    
+    for(map<string, int>::iterator it = p.begin(); it != p.end(); ++it) un += it->second;
+
+    double res = (1.0-(double(in)/double(un)))*100.0;
+    return res;
+}

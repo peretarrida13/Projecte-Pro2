@@ -6,8 +6,8 @@ void Cjt_Cluster::actualitza_taula(const string& id1, const string& id2){
     string id_res = id1 + id2;
     //Calculem les distancies per anar-les afegint la columna a la taula i anem calculant la nova fila amb la cadena resultant
     for(map<string, map<string, double> >::iterator it = taula_distancies.begin(); it != taula_distancies.end(); ++it){
-        map<string, double>::const_iterator it1 = (it -> second).find(id1);
-        map<string, double>::const_iterator it2 = (it -> second).find(id2);           
+        map<string, double>::iterator it1 = (it -> second).find(id1);
+        map<string, double>::iterator it2 = (it -> second).find(id2);           
         if(it1 != (it -> second).end() and it2 != (it -> second).end()) {  
             double res = ((it1 -> second + it2 -> second) / 2);
             it -> second.insert(make_pair(id_res, res));
@@ -21,19 +21,19 @@ void Cjt_Cluster::actualitza_taula(const string& id1, const string& id2){
     //Primer eliminem columna per columna la primera espècie.
     for(map<string, map<string, double> >::iterator iter = taula_distancies.begin(); iter != taula_distancies.end(); ++iter){
         map<string, double>::iterator it = (iter -> second).find(id1);
-        (iter -> second).erase(id1);
+        if(it != iter -> second.end())(iter -> second).erase(id1);
     }
     //Eliminem la fila corresponent a la primera espècie.
     map<string, map<string, double> >::iterator it2 = taula_distancies.find(id1);
-    taula_distancies.erase(it2);
+    if(it2 != taula_distancies.end())taula_distancies.erase(it2);
     //Eliminem columna per columna la segona espècie.
     for(map<string, map<string, double> >::iterator iter = taula_distancies.begin(); iter != taula_distancies.end(); ++iter){
         map<string, double>::iterator it3 = (iter -> second).find(id2);
-        (iter -> second).erase(id2);
+        if(it3 != iter -> second.end())(iter -> second).erase(id2);
     }
     //Eliminem la fila corresponent a la segona espècie
     map<string, map<string, double> >::iterator it4 = taula_distancies.find(id2);
-    taula_distancies.erase(it4);
+    if(it4 != taula_distancies.end()) taula_distancies.erase(it4);
 }
 
 Cjt_Cluster::Cjt_Cluster(){}
@@ -42,14 +42,14 @@ void Cjt_Cluster::inicialitza_clustrers(Cjt_Especies& e){
     //Borrem totes les restes dins la taula de distàncies i dins del conjunt de clusters
     taula_distancies.clear();
     c.clear();
-    //Igualem la taula de distancies del conjunt d'especies a la del conjunt de clusters ja que el principi és igual
-    taula_distancies = e.dist;
+    taula_distancies = e.taula();
     //Anem especie per especie i la convertim en clúster per afegir-la al map
-    map<string, Especie> aux = e.especies;
-    for(map<string, Especie>::iterator it = aux.begin(); it != aux.end(); ++it){
-        string id = it -> first;
+    e.inici();
+    while(not e.final()){
+        string id = e.obtenir_primer();
         Cluster cl(id);
         c.insert(make_pair(id, cl));
+        e.incrementar();
     }
 }
 
@@ -74,13 +74,13 @@ void Cjt_Cluster::ejecuta_paso_wpgma(){
 
     //Actualitzem el conjunt de clúster donats les dos espècies amb menys distància
     string id_res = m1 + m2;
-    map<string, Cluster>::iterator it = c.find(m2);
+    map<string, Cluster>::const_iterator it = c.find(m2);
     Cluster dret = it -> second;
-    c.erase(it);
+    if(it != c.end())c.erase(it);
    
-    map<string, Cluster>::iterator iter = c.find(m1);
+    map<string, Cluster>::const_iterator iter = c.find(m1);
     Cluster esq = iter -> second;
-    c.erase(iter);
+    if(iter != c.end())c.erase(iter);
     
     Cluster aux(make_pair(id_res, double(min / 2)), dret, esq);
     c.insert(make_pair(id_res, aux));
@@ -100,7 +100,7 @@ void Cjt_Cluster::imprime_arbol_filogenetico(){
             ejecuta_paso_wpgma();
         }      
         map<string, Cluster>::iterator it = c.begin(); 
-        (it -> second).imprimeix_cluster((it -> second).clust);
+        (it -> second).imprimeix_cluster((it -> second));
     }
 }
 
@@ -117,7 +117,7 @@ void Cjt_Cluster::imprimir_taula_distancias() const{
 
 bool Cjt_Cluster::busca_cluster(const string& id){
     //Busquem el cluster dins del conjunt per retornar si existeix o no dins del conjunt
-    map<string, Cluster>::iterator it = c.find(id);
+    map<string, Cluster>::const_iterator it = c.find(id);
     if(it != c.end()) return true;
     else return false;
 }

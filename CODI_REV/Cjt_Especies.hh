@@ -23,12 +23,14 @@ private:
  * \post Si l'espècie no existeix, s'afageix a la matriu i s'actualitza les distàncies entre les espècies, en cas contrari, s'elimina de la matriu.
 */
 	void actualitza_dist(const Especie& e, const string& id, bool eliminar);
-
-public:
 /** @brief Diccionari on guardem les espècies a partir d'un identificador. */
 	map<string, Especie> especies;
 /** @brief Matriu de doubles que representen les distàncies entre espècies donats dos identificadors. */
 	map<string, map<string, double> > dist;
+/** @brief iterador que recorre el map especies */
+	map<string, Especie>::iterator it_esp = especies.begin();
+
+public:
 
 /** @brief  Creadora
  * \pre <em>Cert</em>
@@ -57,14 +59,6 @@ public:
 	*/
 	Especie consultar_especie(string id) const;
 	
-	/**
-	@brief Distància entre 2 espècies
-	Donats dos identificadors i de dos espècies diferents i un enter k, es retorna la distància entre
-	les dos espècies. Si alguna de les dos espècies no existeix, la funcio retorna Error.
-	\pre Existeixen els dos paràmetres d'entrada;
-	\post Retorna la distància entre les dos espècies amb dits identificadors.
-	*/
-	double distancia(const Especie& a, const Especie& b); 
 	
 	/**
 	@brief Elimina espècie
@@ -114,6 +108,48 @@ public:
 	\post S'imprimeix la distància entre cada parell d'espècies del conjunt.
 	*/
 	void imprimir_tabla_distancias() const;
+
+	/** @brief Iterador Inici
+	 * 
+	 * \pre <em>Copnjunt no buit</em>
+	 * \post Iterador apunta al principi del map.
+	*/
+	void inici();
+
+	/** @brief Interador final
+	 * 
+	 * \pre <em>Cert</em>
+	 * \post Retorna si l'iterador apunta o no al final de especies.
+	*/
+	bool final();
+	
+	/** @brief Incrementa iterador
+	 * 
+	 * \pre Iterador diferent de end
+	 * \post L'iterador apunta el següent element de la llista.
+	*/
+	void incrementar();
+	
+	/** @brief Obtenir primer element
+	 * 
+	 * \pre Iterador no apunta al final de especies.
+	 * \post retorna el primer element del map al que apunta.
+	*/
+	string obtenir_primer();
+	
+	/** @brief Obtenir segon element
+	 * 
+	 * \pre Iterador no apunta al final de especies.
+	 * \post retorna el segon element del map al que apunta.
+	*/
+	Especie obtenir_segon();
+
+	/** @brief Taula de distancies
+	 * 
+	 * \pre Taula no buida
+	 * \post Retorna la taula de distancies entre especies.
+	*/
+	map<string, map<string, double> > taula();
 };
 
 #endif

@@ -26,7 +26,7 @@ void Cjt_Especies::actualitza_dist(const Especie& e, const string& id, bool elim
         map<string, double> aux; 
         
         for(map<string, Especie>::iterator it1 = especies.begin(); it1 != especies.end(); ++it1){
-            aux.insert(make_pair(it1 -> first, distancia(it1 -> second, e)));
+            aux.insert(make_pair(it1 -> first, Especie::distancia(it1 -> second, e)));
         }
         dist.insert(make_pair(id, aux)); 
         
@@ -34,7 +34,7 @@ void Cjt_Especies::actualitza_dist(const Especie& e, const string& id, bool elim
         map<string, map<string, double> >::iterator tau = dist.begin();
 
         for(map<string, Especie>::iterator it1 = especies.begin(); it1 != especies.end(); ++it1){
-            (tau -> second).insert(make_pair(id, distancia(it1 -> second, e)));
+            (tau -> second).insert(make_pair(id, Especie::distancia(it1 -> second, e)));
             ++tau;
         }
     }
@@ -55,33 +55,6 @@ Especie Cjt_Especies::consultar_especie(string id) const{
     return it -> second;
 }
 
-double Cjt_Especies::distancia(const Especie& a, const Especie& b){
-    int in = 0;
-    int un = 0;
-    //inicialitzem els kmers en dos maps per tal de calcular la distancia
-    map<string, int> p = b.kmer;
-    map<string, int> s = a.kmer;
-
-    //Copiem p i borrem els kmers que comparteix amb s durant el recorregut
-    for(map<string, int>::iterator it = s.begin(); it != s.end(); ++it){
-        map<string, int>::iterator it2 = p.find(it->first);
-        if(it2 != p.end()){
-            if(it->second >= it2->second){
-                un += it->second;
-                in += it2->second;
-            } else{
-                un += it2->second;
-                in += it->second;
-            }
-            p.erase(it2->first);
-        } else un += it->second; //Si el kmer de s no es troba en p només sumem a unió 
-    }
-    
-    for(map<string, int>::iterator it = p.begin(); it != p.end(); ++it) un += it->second;
-
-    double res = (1.0-(double(in)/double(un)))*100.0;
-    return res;
-}
 
 void Cjt_Especies::eliminar_especie(string& id){
     //Busquem l'especie dins del map per eliminar-la.
@@ -125,7 +98,7 @@ void Cjt_Especies::lee_cjt_especies(int k){
     for(map<string, Especie>::iterator it = especies.begin(); it != especies.end(); ++it){
         map<string,double> aux;
         for(map<string, Especie>::iterator it2 = especies.begin(); it2 != especies.end(); ++it2){            
-            aux.insert(make_pair(it2 -> first, distancia(it -> second, it2 -> second)));
+            aux.insert(make_pair(it2 -> first, Especie::distancia(it -> second, it2 -> second)));
         }
         dist.insert(make_pair(it -> first, aux));
     }
@@ -157,3 +130,27 @@ void Cjt_Especies::imprimir_tabla_distancias() const{
 }
 
 
+void Cjt_Especies::inici(){
+    it_esp = especies.begin();
+}
+
+bool Cjt_Especies::final(){
+    if(it_esp == especies.end()) return true;
+    else return false;
+}
+
+void Cjt_Especies::incrementar(){
+    if(it_esp != especies.end()) ++it_esp;
+}
+
+string Cjt_Especies::obtenir_primer(){
+    return it_esp -> first;
+}
+
+Especie Cjt_Especies::obtenir_segon(){
+    return it_esp -> second;
+}
+
+map<string, map<string, double> > Cjt_Especies::taula(){
+    return dist;
+}

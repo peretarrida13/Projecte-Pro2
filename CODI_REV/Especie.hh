@@ -24,10 +24,10 @@ private:
 	string id;
 /** @brief Cadena de gens d'una espècie. */
     string gen;
-
-public:
 	/** @brief Vector que guarda els kmers un cop s'inicialitza l'espècie amb els seus gens */
 	map<string, int> kmer;
+public:
+
 
     /**
 	@brief Constructora
@@ -53,6 +53,15 @@ public:
 	\post Retorna la cadena de gens associada a l'espècie.
 	*/
     string obtener_gen() const;
+
+	/**
+	@brief Distància entre 2 espècies
+	Donats dos identificadors i de dos espècies diferents i un enter k, es retorna la distància entre
+	les dos espècies. Si alguna de les dos espècies no existeix, la funcio retorna Error.
+	\pre Existeixen els dos paràmetres d'entrada;
+	\post Retorna la distància entre les dos espècies amb dits identificadors.
+	*/
+	static double distancia(const Especie& a, const Especie& b); 
     
 };
 
