@@ -59,12 +59,9 @@ void Cjt_Especies::lee_cjt_especies(int k){
         cin >> id >> gen;
         Especie e(gen, k);
         especies.insert(make_pair(id, e));
-    }
-
-    for(map<string, Especie>::iterator it = especies.begin(); it != especies.end(); ++it){
         for(map<string, Especie>::iterator it1 = especies.begin(); it1 != especies.end(); ++it1){
-            double dist = Especie::distancia(it -> second, it1 -> second);
-            taula_dist.afageix_especie(it -> first, it1 -> first, dist);
+            double dist = Especie::distancia(e, it1 -> second);
+            taula_dist.afageix_especie(id, it1 -> first, dist);
         }
     }
 }

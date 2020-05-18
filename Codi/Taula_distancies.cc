@@ -25,11 +25,6 @@ void Taula_distancies::afageix_especie(const string& id1, const string& id2, con
     }
     map<string, map<string, double> >::iterator it1 = taula_dist.find(id2);
     if(it1 != taula_dist.end()) it1 -> second.insert(make_pair(id1, d));
-    else{
-        map<string, double> aux;
-        aux.insert(make_pair(id2, d));
-        taula_dist.insert(make_pair(id1, aux));
-    }
 }
 
 
