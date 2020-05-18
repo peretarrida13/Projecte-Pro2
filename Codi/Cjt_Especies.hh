@@ -5,6 +5,7 @@
 #define CJT_ESPECIES_HH
 
 #include "Especie.hh"
+#include "Taula_distancies.hh"
 
 #ifndef NO_DIAGRAM
 #include <map>
@@ -19,16 +20,14 @@ private:
 /** @brief Diccionari on guardem les espècies a partir d'un identificador. */
 	map<string, Especie> especies;
 /** @brief Matriu de doubles que representen les distàncies entre espècies donats dos identificadors. */
-	map<string, map<string, double> > dist;
+	//map<string, map<string, double> > dist;
+/** @brief iterador que recorre el map especies */
+	map<string, Especie>::iterator it_esp = especies.begin();
 
-/** @brief Modificadora que ens permet actualitzar la matriu dist 
- * donats una espècie i un boolea que ens indica si em d'eliminar o afegir columnes i files.
- * \pre <em> Cert.</em>
- * \post Si l'espècie no existeix, s'afageix a la matriu i s'actualitza les distàncies entre les espècies, en cas contrari, s'elimina de la matriu.
-*/
-	void actualitza_dist(const Especie& e, const string& id, bool eliminar);
+	Taula_distancies taula_dist;
 
 public:
+
 /** @brief  Creadora
  * \pre <em>Cert</em>
  * \post El resultat és  un conjunt d'Especies buit.
@@ -46,7 +45,7 @@ public:
 	\pre No existeix cap espècie amb l'identificador donat.
 	\post Un nou objecte del tipus espècie s'ha afegit al conjunt d'espècies.
 	*/
-	void crea_especie(string& identificador, string& gen, int& k);
+	void crea_especie(string& id, string& gen, int& k);
 
 	/**
 	@brief Consultar l'espècie d'un conjunt
@@ -54,16 +53,8 @@ public:
 	\pre Existeix l'espècie dins del conjunt. 
 	\post Retorna l'objecte especie amb l'identifjicador donat.
 	*/
-	Especie consultar_especie(string id);
+	Especie consultar_especie(string id) const;
 	
-	/**
-	@brief Distància entre 2 espècies
-	Donats dos identificadors i de dos espècies diferents i un enter k, es retorna la distància entre
-	les dos espècies. Si alguna de les dos espècies no existeix, la funcio retorna Error.
-	\pre Existeixen els dos paràmetres d'entrada;
-	\post Retorna la distància entre les dos espècies amb dits identificadors.
-	*/
-	double distancia(const Especie& a, const Especie& b); 
 	
 	/**
 	@brief Elimina espècie
@@ -104,31 +95,52 @@ public:
 	\pre Conjunt d'espècies no buit.
 	\post S'han imprés totes les espècies del conjunt amb els seus respectius identificadors i gens.
 	*/
-	void imprime_cjt_especies();
+	void imprime_cjt_especies() const;
+
+	/** @brief Iterador Inici
+	 * 
+	 * \pre <em>Copnjunt no buit</em>
+	 * \post Iterador apunta al principi del map.
+	*/
+	void inici();
+
+	/** @brief Interador final
+	 * 
+	 * \pre <em>Cert</em>
+	 * \post Retorna si l'iterador apunta o no al final de especies.
+	*/
+	bool final();
 	
+	/** @brief Incrementa iterador
+	 * 
+	 * \pre Iterador diferent de end
+	 * \post L'iterador apunta el següent element de la llista.
+	*/
+	void incrementar();
+	
+	/** @brief Obtenir primer element
+	 * 
+	 * \pre Iterador no apunta al final de especies.
+	 * \post retorna el primer element del map al que apunta.
+	*/
+	string obtenir_primer();
+	
+	/** @brief Obtenir segon element
+	 * 
+	 * \pre Iterador no apunta al final de especies.
+	 * \post retorna el segon element del map al que apunta.
+	*/
+	Especie obtenir_segon();
+
 	/**
 	@brief <b>Taula de distàncies</b>
 	Donat un conjunt d'espècies imprimeix una matriu amb les distàncies entre espècies del conjunt.
 	\pre Conjunt no buit.
 	\post S'imprimeix la distància entre cada parell d'espècies del conjunt.
 	*/
-	void imprimir_tabla_distancias();
+    void imprimir_taula_distancies() const;
 
-	/**
-	@brief <b>Taula de distàncies</b>
-	Retorna la taula de distancies de un conjunt d'especies
-	\pre Conjunt no buit.
-	\post S'ha retornat la distància entre cada parell d'espècies del conjunt.
-	*/
-	map<string, map<string, double> > taula_dist();
-
-	/**
-	@brief <b> Map Especies </b>
-	Retorna el map del conjunt d'especies.
-	\pre Existeix el conjunt d'espècies.
-	\post Retorna un map que conté el conjunt d'espècies sense la taula de distàncies.
-	*/
-	map<string, Especie> cjt();
+	Taula_distancies obtenir_taula();
 };
 
 #endif

@@ -5,8 +5,9 @@
 #ifndef CJT_CLUSTER_HH
 #define CJT_CLUSTER_HH
 
-#include "Cluster.hh"
-#include "Cjt_Especies.hh"  
+#include "Cluster.hh" 
+#include "Taula_distancies.hh"
+#include "Cjt_Especies.hh"
 
 #ifndef NO_DIAGRAM
 #include <map> 
@@ -27,7 +28,7 @@ private:
 	/**
 	 * @brief Taula per emmagatzemmar la distàncies entre clústers.
 	*/
-	map<string, map<string, double> > taula_distancies;
+	Taula_distancies taula_distancies;
 
 	/** @brief Modificadora que ens permet actualitzar la matriu dist 
  	* donat el identificador elimina les files i les columnes donades
@@ -51,7 +52,7 @@ public:
     void inicialitza_clustrers(Cjt_Especies& e);
     
     /**
-	@brief Exacuta un pas WPGMA
+	@brief Exacuta un pas WPGMA 
 	Exacuta un pas de l'algorisme WPGMA
 	\pre Conjunt de clústers amb mida més gran o igual que 1.
 	\post S'ha exacutat un pas del algorisme WPGMA i s'ha imprés al taula de distàncies.
@@ -63,7 +64,7 @@ public:
 	 * \pre El clúster de l'identificador existeix dins del conjunt.
 	 * \post Retorna el clúster corresponent a l'identificador donat.
 	*/
-	Cluster consultar_cluster(string id);
+	Cluster consultar_cluster(string id) const;
 	
 	/**
 	 * @brief Imprimeix l'arbre filogenetic a partir del conjunt d'espècies actual.
@@ -78,7 +79,7 @@ public:
 	 * \post <em>Cert</em>
 	 * \post S'ha imprés la taula amb els identificadors corresponents.
 	*/
-	void imprimir_taula_distancias();
+	Taula_distancies obtenir_taula() const;
 
 	/**
 	 * @brief Busca Cluster.
@@ -92,7 +93,7 @@ public:
 	 * \post <em>Cert</em>
 	 * \post Retorna la mida del conjunt de clústers
 	*/
-	int mida_cjt();
+	int mida_cjt() const;
 
 };
 

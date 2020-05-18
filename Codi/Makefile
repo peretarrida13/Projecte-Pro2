@@ -1,7 +1,7 @@
 OPCIONS = -D_JUDGE_ -D_GLIBCXX_DEBUG -O2 -Wall -Wextra -Werror -Wno-sign-compare -std=c++11
 
-program.exe: Cjt_Especies.o Especie.o Cluster.o Cjt_Cluster.o program.o
-	g++ -o program.exe Cjt_Especies.o Especie.o Cluster.o Cjt_Cluster.o program.o
+program.exe: Cjt_Especies.o Especie.o Taula_distancies.o Cluster.o Cjt_Cluster.o program.o
+	g++ -o program.exe Cjt_Especies.o Especie.o Taula_distancies.o Cluster.o Cjt_Cluster.o program.o
 	
 program.o: program.cc
 	g++ program.cc -c $(OPCIONS)
@@ -10,6 +10,9 @@ Especie.o: Especie.hh
 
 Cjt_Especies.o: Cjt_Especies.hh
 	g++ -c Cjt_Especies.cc $(OPCIONS)
+
+Taula_distancies.o: Taula_distancies.hh
+	g++ -c Taula_distancies.cc $(OPCIONS)
 
 Cluster.o: Cluster.hh
 	g++ -c Cluster.cc $(OPCIONS)
