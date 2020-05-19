@@ -1,22 +1,29 @@
 #include "Taula_distancies.hh"
 
 
-Taula_distancies::Taula_distancies(){}
+Taula_distancies::Taula_distancies(){
+    //Constructora per defecte.
+}
 
-Taula_distancies::~Taula_distancies(){}
+Taula_distancies::~Taula_distancies(){
+    //Destructora per defecte.
+}
 
 void Taula_distancies::elimina_especie(const string& id){
+    //Recorrem la taula i eliminem les espècies.
     for(map<string, map<string, double> >::iterator it1 = taula_dist.begin(); it1 != taula_dist.end(); ++it1){
         map<string, double>::iterator iter = (it1 -> second).find(id);
         it1 -> second.erase(iter);
     }
-    //Busquem l'especie dins del conjunt per eliminar-la despres
+    //Busquem l'espècie dins del conjunt per eliminar la fila després.
     map<string, map<string, double> >::iterator it = taula_dist.find(id);
     taula_dist.erase(it); 
 }
 
 void Taula_distancies::afageix_especie(const string& id1, const string& id2, const double& d){
+    //Busquem la espècie dins del conjunt.
     map<string, map<string, double> >::iterator it = taula_dist.find(id1);
+    //Afegim el valor ala
     if(it != taula_dist.end()) it -> second.insert(make_pair(id2, d));
     else{
         map<string, double> aux;
@@ -27,18 +34,8 @@ void Taula_distancies::afageix_especie(const string& id1, const string& id2, con
     if(it1 != taula_dist.end()) it1 -> second.insert(make_pair(id1, d));
 }
 
-
-void Taula_distancies::imprimir_taula_distancies() const{
-    for(map<string, map<string, double> >::const_iterator fila = taula_dist.begin(); fila != taula_dist.end(); ++fila){
-        cout << fila -> first << ":";
-        for(map<string, double>::const_iterator columna = (fila -> second).begin(); columna != (fila -> second).end(); ++columna){
-            if(fila -> first < columna -> first) cout << ' ' << columna -> first << " (" << columna -> second << ')';
-        } 
-        cout << endl;
-    }
-}
-
 void Taula_distancies::distancia_minima(double& min, string& m1, string& m2){
+    //Recorrem la taula i si el valor de la distància es més petita que l'emmagatzamada, canviem el valor de la distància i el de les dos strings.
     for(map<string, map<string, double> >::iterator it = taula_dist.begin(); it != taula_dist.end(); ++it){
         for(map<string, double>::iterator it1 = (it -> second).begin(); it1 != (it -> second).end(); ++it1){
             if(it -> first != it1 ->first){
@@ -55,7 +52,7 @@ void Taula_distancies::distancia_minima(double& min, string& m1, string& m2){
 void Taula_distancies::actualitza_taula_cluster(const string& id1, const string& id2){
     map<string, double> aux;
     string id_res = id1 + id2;
-    //Calculem les distancies per anar-les afegint la columna a la taula i anem calculant la nova fila amb la cadena resultant
+    //Calculem les distancies per anar-les afegint la columna a la taula i anem calculant la nova fila amb la cadena resultant.
     for(map<string, map<string, double> >::iterator it = taula_dist.begin(); it != taula_dist.end(); ++it){
         map<string, double>::iterator it1 = (it -> second).find(id1);
         map<string, double>::iterator it2 = (it -> second).find(id2);           
@@ -65,10 +62,11 @@ void Taula_distancies::actualitza_taula_cluster(const string& id1, const string&
             aux.insert(make_pair(it ->first, res));
         }
     }
-    //Afegim la nova fila a la taula de distàncies
+    //Afegim la nova fila a la taula de distàncies.
     taula_dist.insert(make_pair(id_res, aux));
 
     //Eliminem les dos espècies implicades en l'algorisme wpgma 
+
     //Primer eliminem columna per columna la primera espècie.
     for(map<string, map<string, double> >::iterator iter = taula_dist.begin(); iter != taula_dist.end(); ++iter){
         map<string, double>::iterator it = (iter -> second).find(id1);
@@ -82,11 +80,23 @@ void Taula_distancies::actualitza_taula_cluster(const string& id1, const string&
         map<string, double>::iterator it3 = (iter -> second).find(id2);
         if(it3 != iter -> second.end())(iter -> second).erase(id2);
     }
-    //Eliminem la fila corresponent a la segona espècie
+    //Eliminem la fila corresponent a la segona espècie.
     map<string, map<string, double> >::iterator it4 = taula_dist.find(id2);
     if(it4 != taula_dist.end()) taula_dist.erase(it4);
 }
 
+void Taula_distancies::imprimir_taula_distancies() const{
+    //Recorrem la taula per imprimir component a component la taula.
+    for(map<string, map<string, double> >::const_iterator fila = taula_dist.begin(); fila != taula_dist.end(); ++fila){
+        cout << fila -> first << ":";
+        for(map<string, double>::const_iterator columna = (fila -> second).begin(); columna != (fila -> second).end(); ++columna){
+            if(fila -> first < columna -> first) cout << ' ' << columna -> first << " (" << columna -> second << ')';
+        } 
+        cout << endl;
+    }
+}
+
 void Taula_distancies::buida_taula(){
+    //Eliminem qualsevol contingut de la taula de distàncies.
     taula_dist.clear();
 }

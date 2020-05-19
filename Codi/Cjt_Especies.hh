@@ -4,7 +4,6 @@
 #ifndef CJT_ESPECIES_HH
 #define CJT_ESPECIES_HH
 
-#include "Especie.hh"
 #include "Taula_distancies.hh"
 
 #ifndef NO_DIAGRAM
@@ -17,30 +16,27 @@
 class Cjt_Especies{
 
 private:
-/** @brief Diccionari on guardem les espècies a partir d'un identificador. */
+/** @brief Diccionari on guardem les espècies classificant-les per els identificadors. */
 	map<string, Especie> especies;
-/** @brief Matriu de doubles que representen les distàncies entre espècies donats dos identificadors. */
-	//map<string, map<string, double> > dist;
-/** @brief iterador que recorre el map especies */
-	map<string, Especie>::iterator it_esp = especies.begin();
-
+/** @brief Taula la qual emmagatzema la distància entre espècies.*/
 	Taula_distancies taula_dist;
+/** @brief Iterador que recorre el map especies.*/
+	map<string, Especie>::iterator it_esp = especies.begin();
 
 public:
 
-/** @brief  Creadora
- * \pre <em>Cert</em>
+/** @brief <b>Constructora.</b>
+ * \pre <em>Cert.</em>
  * \post El resultat és  un conjunt d'Especies buit.
 */
 	Cjt_Especies();
 
-/** @brief Destructura */
+/** @brief <b>Destructura.</b> */
 	~Cjt_Especies();
 
 /**
-	@brief Crear espècie
-	Es crea un objecte espècie amb l'identificador i els gens donats.
-	Un cop creada l'espècie l'afegeix al conjunt d'espècies.
+	@brief <b>Crea espècie.</b>
+	Crea una espècie i l'emmagatzema al map.
 	
 	\pre No existeix cap espècie amb l'identificador donat.
 	\post Un nou objecte del tipus espècie s'ha afegit al conjunt d'espècies.
@@ -48,98 +44,88 @@ public:
 	void crea_especie(string& id, string& gen, int& k);
 
 	/**
-	@brief Consultar l'espècie d'un conjunt
-	Consultora d'un conjunt d'espècies per veure l'espècie pertanyent al conjunt amb l'identificador donat.
+	@brief <b>Consultar l'espècie d'un conjunt.</b>
+	Consultora d'un conjunt d'espècies, retorna una especie.
 	\pre Existeix l'espècie dins del conjunt. 
-	\post Retorna l'objecte especie amb l'identifjicador donat.
+	\post Retorna l'objecte especie amb l'identificador donat.
 	*/
 	Especie consultar_especie(string id) const;
 	
 	
 	/**
-	@brief Elimina espècie
-	Es dona un identificador, es busca l'espècie amb l'identificador dins del conjunt, i
-	s'elimina.
+	@brief <b>Elimina espècie.</b>
+	Busca l'espècie i l'elimina de la taula i del map.
 	\pre Existeix l'espècie amb l'identificador donat.
 	\post S'ha eliminat l'espècie amb l'identificador id del conjunt d'espècies.
 	*/	
 	void eliminar_especie(string& id);
 	
 	/**
-	@brief Existeix espècie
-	Busca una espècies dins del conjunt amb l'identificador donat. Retorna true si l'ha trobada
-	i false en cas contrari.
+	@brief <b>Existeix espècie.</b>
+	Busca una espècies dins del conjunt amb l'identificador donat. 
 	\pre Identificador vàlid.
 	\post Retorna si l'espècie que pertany a l'identificador pertany al conjunt o no.
 	*/
 	bool existe_especie(string& id);
 	
 	/**
-	@brief Llegir Un Conjunt d'espècies
-	Llegeix un conjunt d'espècies i guarda els valors llegits en una llista d'espècies.
-	\pre <em>Cert</em>
-	\post S'ha llegit i afegit totes les espècies al conjunt.
+	@brief <b>Llegir Un Conjunt d'espècies.</b>
+	Llegeix i l'espècie i la guarda en el map i en la taula.
+	\pre <em>Cert.</em>
+	\post S'ha llegit i afegit totes les espècies al conjunt i s'ha emplenat la taula.
 	*/
 	void lee_cjt_especies(int k);
 
-	/** @brief Conjunt buit
+	/** @brief <b>Conjunt buit.</b>
 	 * 
-	 * \pre <em>Cert</em>
-	 * \post retorna true si el conjunt està buit i false si el conjunt té Espècies.
+	 * \pre <em>Cert.</em>
+	 * \post Retorna si el conjunt està buit o no.
 	*/
 	bool esta_buit();
 	
 	/**
-	@brief Imprimeix un Conjunt d'espècies
-	Imprimeix un conjunt d'espècies amb el identificador i amb el gen corresponents.
+	@brief <b>Imprimeix un Conjunt d'espècies.</b>
+	Imprimeix un conjunt d'espècies primer l'identificador i després el gen.
 	\pre Conjunt d'espècies no buit.
-	\post S'han imprés totes les espècies del conjunt amb els seus respectius identificadors i gens.
+	\post S'han imprés totes les espècies.
 	*/
 	void imprime_cjt_especies() const;
 
-	/** @brief Iterador Inici
-	 * 
-	 * \pre <em>Copnjunt no buit</em>
+	/** @brief <b>Iterador Inici.</b>
+	 * \pre Copnjunt no buit.
 	 * \post Iterador apunta al principi del map.
 	*/
 	void inici();
 
-	/** @brief Interador final
-	 * 
-	 * \pre <em>Cert</em>
+	/** @brief <b>Interador final.</b>
+	 * \pre <em>Cert.</em>
 	 * \post Retorna si l'iterador apunta o no al final de especies.
 	*/
 	bool final();
 	
-	/** @brief Incrementa iterador
-	 * 
-	 * \pre Iterador diferent de end
-	 * \post L'iterador apunta el següent element de la llista.
+	/** @brief <b>Incrementa iterador.</b>
+	 * \pre Iterador <b>no</b> apunta al final del map.
+	 * \post L'iterador apunta el següent element del map.
 	*/
 	void incrementar();
 	
-	/** @brief Obtenir primer element
-	 * 
-	 * \pre Iterador no apunta al final de especies.
-	 * \post retorna el primer element del map al que apunta.
+	/** @brief <b>Obtenir primer element.</b>
+	 * \pre Iterador no apunta al final del map.
+	 * \post Retorna el primer element del map al qual apunta l'iterador.
 	*/
 	string obtenir_primer();
 	
-	/** @brief Obtenir segon element
-	 * 
-	 * \pre Iterador no apunta al final de especies.
-	 * \post retorna el segon element del map al que apunta.
+	/** @brief <b>Obtenir segon element.</b>
+	 * \pre Iterador <b>no</b> apunta al final del map.
+	 * \post retorna el segon element del map al qual apunta l'iterador.
 	*/
 	Especie obtenir_segon();
 
 	/**
-	@brief <b>Taula de distàncies</b>
-	Donat un conjunt d'espècies imprimeix una matriu amb les distàncies entre espècies del conjunt.
-	\pre Conjunt no buit.
-	\post S'imprimeix la distància entre cada parell d'espècies del conjunt.
+	@brief <b>Obtenir Taula</b>
+	\pre <em>Cert.</em>
+	\post Retorna la taula de distàncies del conjunt.
 	*/
-    void imprimir_taula_distancies() const;
-
 	Taula_distancies obtenir_taula();
 };
 

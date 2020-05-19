@@ -1,14 +1,13 @@
-# Doxyfile sesion 8
-
+# Doxyfile 1.5.6
 #---------------------------------------------------------------------------
 # Project related configuration options
 #---------------------------------------------------------------------------
-DOXYFILE_ENCODING      = utf-8
-PROJECT_NAME           = "Arbre Filogènetic."
-PROJECT_NUMBER         = "version 1 18-abr-2020"
-OUTPUT_DIRECTORY       = "./DOXYGEN"
+DOXYFILE_ENCODING      = UTF-8
+PROJECT_NAME           = "Laboratori de PRO2. Arbre filogenètic"
+PROJECT_NUMBER         = "v1.5.6"
+OUTPUT_DIRECTORY       = "./Doxygen"
 CREATE_SUBDIRS         = NO
-OUTPUT_LANGUAGE        = Spanish
+OUTPUT_LANGUAGE        = Catalan
 BRIEF_MEMBER_DESC      = YES
 REPEAT_BRIEF           = YES
 ABBREVIATE_BRIEF       = "The $name class" \
@@ -51,7 +50,7 @@ TYPEDEF_HIDES_STRUCT   = NO
 # Build related configuration options
 #---------------------------------------------------------------------------
 EXTRACT_ALL            = YES
-EXTRACT_PRIVATE        = NO
+EXTRACT_PRIVATE        = YES # para que los elementos privados aparezcan en la documentacion
 EXTRACT_STATIC         = NO
 EXTRACT_LOCAL_CLASSES  = YES
 EXTRACT_LOCAL_METHODS  = NO
@@ -93,15 +92,12 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = "./CODI"
-INPUT_ENCODING         = utf-8
-FILE_PATTERNS          = *.hpp \ *.hh \
-                         main*.cpp \ main*.cc \
-                         pro2*.cpp \ pro2*.cc \
-			 program.cpp \ program.cc \
-                         principal*.cpp \ principal*.cc
+INPUT                  = "."
+INPUT_ENCODING         = UTF-8
+FILE_PATTERNS          = *.hh \ 
+                         *.cc   # para que todos los ficheros c++ intervengan en la documentacion
 RECURSIVE              = NO
-EXCLUDE                = *~ \ readbool.hh
+EXCLUDE                = *~ \ BinTree.hh \ readbool.hh \ PRO2Excepcio.hh
 EXCLUDE_SYMLINKS       = NO
 EXCLUDE_PATTERNS       = *~
 EXCLUDE_SYMBOLS        = 

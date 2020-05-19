@@ -5,10 +5,9 @@
 #ifndef CLUSTER_HH
 #define CLUSTER_HH
 
-#include "Especie.hh"
-
 #ifndef NO_DIAGRAM
 #include "BinTree.hh"
+#include <iostream>
 #endif
 
 using namespace std;
@@ -19,46 +18,37 @@ using namespace std;
 class Cluster{
 	
 private:
-/** 
- * @brief Classe gestionada per mitjà d'un BinTree
- * Esta format pel pair que conté una string que actua com identificador del clúster i un double que representa la distància a la que estan les espècies de les seves branques
- */
+/** @brief BinTree que gestiona la classe la strring es l'identificador i el double la distancia.*/
 	BinTree<pair<string, double> > clust;
 
 public:
 	Cluster();
 /**
- * @brief Constructora.
- * \pre <em>Cert</em>
- * \post El resultat un clúster sense nodes i fills creada a partir d'una espècie.
+ * @brief <b>Constructora.</b>
+ * \pre <em>Cert.</em>
+ * \post El resultat un clúster nomes amb el node arrel.
  */
 
 	Cluster(string& e);
 
-/** @brief Constructora a partir de dos clusters.
- * \pre <em>Cert<em>
+/** @brief <b>Constructora</b> a partir de dos clusters.
+ * \pre <em>Cert.<em>
  * \post El resultat una fusió dels dos clusters en un.
 */
 	Cluster(pair<string, double> p,  Cluster dret, Cluster esq);
 
-/** @brief Constructora a partir de dos BinTree.
- * \pre <em>Cert<em>
- * \post El resultat una fusió dels dos arbres en un.
-*/
-	Cluster(pair<string, double> p, BinTree<pair<string, double> > dret, BinTree<pair<string, double> > esq);
-
-/** @brief Destructora*/
+/** @brief <b>Destructora.</b>*/
  	~Cluster();
 
-/** @brief Imprimeix arbre
- * Funció d'immersió per ajudar a imprimir el arbre
+/** @brief <b>Imprimeix arbre</b>
+ * Funció d'immersió i recursiva.
  * \pre Arbre no buit.
  * \post S'ha imprès el arbre.
 */ 
 	void imprimeix_arbre(const BinTree<pair<string, double> >& c) const;
 	
-/** @brief Imprimeix clúster
- * Funció recursiva que ens permet imprimir el cluster
+/** @brief <b>Imprimeix clúster.</b>
+ * Funció que crida la funció d'immersió.
  * \pre Clúster no buit.
  * \post S'ha imprès el clúster.
 */ 
